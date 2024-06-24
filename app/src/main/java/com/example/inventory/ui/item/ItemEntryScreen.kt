@@ -85,11 +85,10 @@ fun ItemEntryScreen(
                           }
             },
             modifier = Modifier
-                .padding(innerPadding)
                 .padding(
                     start = innerPadding.calculateStartPadding(LocalLayoutDirection.current),
-                    end = innerPadding.calculateEndPadding(LocalLayoutDirection.current),
-                    top = innerPadding.calculateTopPadding()
+                    top = innerPadding.calculateTopPadding(),
+                    end = innerPadding.calculateEndPadding(LocalLayoutDirection.current)
                 )
                 .verticalScroll(rememberScrollState())
                 .fillMaxWidth()
@@ -132,7 +131,7 @@ fun ItemInputForm(
     enabled: Boolean = true
 ) {
     Column(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         OutlinedTextField(
