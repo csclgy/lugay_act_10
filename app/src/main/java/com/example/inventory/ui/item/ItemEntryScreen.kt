@@ -46,6 +46,7 @@ import com.example.inventory.R
 import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.navigation.NavigationDestination
 import com.example.inventory.ui.theme.InventoryTheme
+import kotlinx.coroutines.launch
 import java.util.Currency
 import java.util.Locale
 
@@ -99,13 +100,13 @@ fun ItemEntryScreen(
 @Composable
 fun ItemEntryBody(
     itemUiState: ItemUiState,
-    onItemValueChange: (ItemUiState) -> Unit,
+    onItemValueChange: (ItemDetails) -> Unit,
     onSaveClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Column(
-        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large)),
-        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium))
+        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_medium)),
+        verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_large))
         ) {
         ItemInputForm(
             itemDetails = itemUiState.itemDetails,
@@ -127,7 +128,7 @@ fun ItemEntryBody(
 fun ItemInputForm(
     itemDetails: ItemDetails,
     modifier: Modifier = Modifier,
-    onValueChange: (ItemUiState) -> Unit = {},
+    onValueChange: (ItemDetails) -> Unit = {},
     enabled: Boolean = true
 ) {
     Column(
@@ -135,9 +136,9 @@ fun ItemInputForm(
         verticalArrangement = Arrangement.spacedBy(dimensionResource(id = R.dimen.padding_medium))
     ) {
         OutlinedTextField(
-            value = itemUiState.name,
+            value = itemDetails.name,
             onValueChange = { onValueChange(itemDetails.copy(name = it)) },
-          //  label = { Text(stringResource(R.string.item_name_req)) },
+            label = { Text(stringResource(R.string.item_name_req)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -148,10 +149,10 @@ fun ItemInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = itemUiState.price,
+            value = itemDetails.price,
             onValueChange = { onValueChange(itemDetails.copy(price = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
-//            label = { Text(stringResource(R.string.item_price_req)) },
+            label = { Text(stringResource(R.string.item_price_req)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
@@ -163,10 +164,10 @@ fun ItemInputForm(
             singleLine = true
         )
         OutlinedTextField(
-            value = itemUiState.quantity,
+            value = itemDetails.quantity,
             onValueChange = { onValueChange(itemDetails.copy(quantity = it)) },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-//            label = { Text(stringResource(R.string.quantity_req)) },
+            label = { Text(stringResource(R.string.quantity_req)) },
             colors = OutlinedTextFieldDefaults.colors(
                 focusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
                 unfocusedContainerColor = MaterialTheme.colorScheme.secondaryContainer,
